@@ -22,6 +22,9 @@ public class Bootstrap implements CommandLineRunner {
         Category dried = new Category();
         dried.setName("Dried");
 
+        Category fresh = new Category();
+        fresh.setName("Fresh");
+
         Category exotic = new Category();
         exotic.setName("Exotic");
 
@@ -30,9 +33,12 @@ public class Bootstrap implements CommandLineRunner {
 
         categoryRepository.save(fruits);
         categoryRepository.save(dried);
+        categoryRepository.save(fresh);
         categoryRepository.save(exotic);
         categoryRepository.save(nuts);
 
-        System.out.println("Data loaded=" + categoryRepository.count());
+
+        System.out.println("Data Loaded = " + categoryRepository.count() );
+
     }
 }
