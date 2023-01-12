@@ -101,4 +101,21 @@ public class VendorServiceImplTest {
 
         verify(vendorRepository, times(1)).deleteById(anyLong());
     }
+
+    @Test
+    public void saveVendorByDTO() {
+        //given
+        VendorDTO vendorDTO = new VendorDTO();
+        vendorDTO.setName("Wednesday");
+
+        Vendor savedVendor = new Vendor();
+        savedVendor.setName(vendorDTO.getName());
+        savedVendor.setId(1L);
+
+        when(vendorRepository.save(any(Vendor.class))).thenReturn(savedVendor);
+
+        //when
+        //then
+        assertEquals(vendorDTO.getName(), savedVendor.getName());
+    }
 }
