@@ -51,7 +51,7 @@ public class VendorController {
     @PatchMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public VendorDTO patchVendor(@PathVariable Long id ,@RequestBody VendorDTO vendorDTO) {
-        return vendorService.patchVendor(id, vendorDTO);
+        return vendorService.saveVendorByDTO(id, vendorDTO);
     }
 
 }
