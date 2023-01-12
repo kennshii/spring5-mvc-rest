@@ -48,6 +48,7 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public VendorDTO createNewVendor(VendorDTO vendorDTO) {
+
         return saveAndReturnDTO(vendorMapper.vendorDtoToVendor(vendorDTO));
     }
 
@@ -56,6 +57,7 @@ public class VendorServiceImpl implements VendorService {
     }
 
     private VendorDTO saveAndReturnDTO(Vendor vendor) {
+
         Vendor savedVendor = vendorRepository.save(vendor);
 
         VendorDTO returnDto = vendorMapper.vendorToVendorDTO(savedVendor);

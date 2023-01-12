@@ -12,10 +12,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static guru.springfamework.controllers.v1.AbstractRestControllerTest.asJsonString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -72,6 +74,27 @@ public class VendorControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo("pohui2")))
                 .andExpect(jsonPath("$.vendor_url", equalTo(VendorController.BASE_URL + "/1")));
+    }
 
+    @Test
+    public void createNewVendor() throws Exception {
+        //given
+        VendorDTO vendor1 = new VendorDTO();
+        vendor1.setName("pohui2");
+        vendor1.setVendorUrl(VendorController.BASE_URL + "/1");
+
+        VendorDTO returnDTO = new VendorDTO();
+        returnDTO.setName(vendor1.getName());
+        returnDTO.setVendorUrl(vendor1.getVendorUrl());
+
+        when(vendorService.createNewVendor(vendor1)).thenReturn(returnDTO);
+
+        //when/then
+        mockMvc.perform(post(VendorController.BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(vendor1)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name", equalTo("pohui2")))
+                .andExpect(jsonPath("$.vendor_url", equalTo(VendorController.BASE_URL + "/1")));
     }
 }
