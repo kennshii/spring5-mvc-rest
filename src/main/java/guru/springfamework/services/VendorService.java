@@ -9,5 +9,7 @@ public interface VendorService {
 
     VendorDTO getVendorById(Long id);
 
+    Void deleteVendorById(Long id);
+
     VendorDTO createNewVendor(VendorDTO vendorDTO);
 }

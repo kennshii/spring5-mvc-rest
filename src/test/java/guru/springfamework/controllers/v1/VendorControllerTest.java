@@ -15,9 +15,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static guru.springfamework.controllers.v1.AbstractRestControllerTest.asJsonString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -96,5 +96,15 @@ public class VendorControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", equalTo("pohui2")))
                 .andExpect(jsonPath("$.vendor_url", equalTo(VendorController.BASE_URL + "/1")));
+    }
+
+    @Test
+    public void testDeleteVendor() throws Exception {
+
+        mockMvc.perform(delete(VendorController.BASE_URL + "/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(vendorService).deleteVendorById(anyLong());
     }
 }
